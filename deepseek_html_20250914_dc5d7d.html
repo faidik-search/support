@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Faidik | Техническая поддержка</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Montserrat:wght@400;500;600;700&display=swap');
+        
+        :root {
+            --primary: #1a56db;
+            --primary-dark: #1e429f;
+            --secondary: #0e9f6e;
+            --dark: #1f2937;
+            --light: #f3f4f6;
+            --gray: #6b7280;
+            --danger: #e02424;
+            --success: #057a55;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
+            color: var(--dark);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 900px;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            animation: fadeIn 0.8s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        header {
+            background: linear-gradient(to right, var(--primary), var(--primary-dark));
+            padding: 30px;
+            text-align: center;
+            color: white;
+            position: relative;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+        }
+        
+        .logo i {
+            font-size: 2.5rem;
+            margin-right: 15px;
+        }
+        
+        .logo h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.2rem;
+            font-weight: 700;
+        }
+        
+        header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .form-container {
+            padding: 35px;
+        }
+        
+        .form-section {
+            margin-bottom: 30px;
+            padding-bottom: 25px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        
+        .section-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: var(--primary-dark);
+            display: flex;
+            align-items: center;
+        }
+        
+        .section-title i {
+            margin-right: 12px;
+        }
+        
+        .input-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        @media (max-width: 768px) {
+            .input-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .input-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+        
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--dark);
+            font-size: 1rem;
+        }
+        
+        .input-group input, 
+        .input-group textarea,
+        .input-group select {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid #e5e7eb;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: all 0.3s;
+            background: var(--light);
+        }
+        
+        .input-group input:focus, 
+        .input-group textarea:focus,
+        .input-group select:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(26, 86, 219, 0.15);
+            outline: none;
+        }
+        
+        .input-group textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+        
+        .priority-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 10px;
+        }
+        
+        .priority-btn {
+            flex: 1;
+            padding: 12px;
+            border: 2px solid #e5e7eb;
+            border-radius: 10px;
+            background: white;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+        
+        .priority-btn:hover {
+            border-color: var(--primary);
+        }
+        
+        .priority-btn.selected {
+            border-color: var(--primary);
+            background: var(--primary);
+            color: white;
+        }
+        
+        .priority-btn i {
+            margin-right: 8px;
+        }
+        
+        .file-input {
+            display: none;
+        }
+        
+        .file-label {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 30px;
+            border: 2px dashed var(--primary);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            background: rgba(26, 86, 219, 0.05);
+        }
+        
+        .file-label:hover {
+            background: rgba(26, 86, 219, 0.1);
+        }
+        
+        .file-label i {
+            font-size: 40px;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+        
+        .file-label span {
+            color: var(--primary);
+            font-weight: 500;
+            text-align: center;
+        }
+        
+        .file-preview {
+            margin-top: 20px;
+            display: none;
+        }
+        
+        .file-preview img {
+            max-width: 100%;
+            max-height: 200px;
+            border-radius: 10px;
+            margin-top: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .file-info {
+            margin-top: 10px;
+            font-size: 14px;
+            color: var(--gray);
+            padding: 10px;
+            background: var(--light);
+            border-radius: 8px;
+        }
+        
+        .remove-file {
+            color: var(--danger);
+            cursor: pointer;
+            margin-left: 10px;
+            font-weight: 500;
+        }
+        
+        .captcha-container {
+            background: var(--light);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        
+        .captcha-text {
+            font-size: 24px;
+            font-weight: bold;
+            letter-spacing: 8px;
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            user-select: none;
+            color: var(--primary-dark);
+            border: 2px dashed var(--primary);
+        }
+        
+        .captcha-input {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid #e5e7eb;
+            border-radius: 10px;
+            font-size: 16px;
+            text-align: center;
+            margin-top: 10px;
+        }
+        
+        .captcha-input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(26, 86, 219, 0.15);
+            outline: none;
+        }
+        
+        .refresh-captcha {
+            color: var(--primary);
+            cursor: pointer;
+            margin-top: 10px;
+            display: inline-block;
+            font-weight: 500;
+        }
+        
+        .refresh-captcha:hover {
+            color: var(--primary-dark);
+        }
+        
+        .submit-btn {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(to right, var(--primary), var(--primary-dark));
+            border: none;
+            border-radius: 10px;
+            color: white;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+            margin-top: 20px;
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .submit-btn:active {
+            transform: translateY(-1px);
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
+        }
+        
+        .submit-btn::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateX(-100%);
+            transition: transform 0.3s;
+        }
+        
+        .submit-btn:hover::after {
+            transform: translateX(0);
+        }
+        
+        .loader {
+            display: none;
+            width: 30px;
+            height: 30px;
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top: 4px solid white;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 20px;
+            border-radius: 10px;
+            color: white;
+            opacity: 0;
+            transform: translateX(100px);
+            transition: all 0.5s;
+            z-index: 1000;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+            max-width: 350px;
+        }
+        
+        .notification.success {
+            background: var(--success);
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        .notification.error {
+            background: var(--danger);
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        .notification i {
+            margin-right: 10px;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 25px;
+            color: var(--gray);
+            font-size: 14px;
+            border-top: 1px solid #e5e7eb;
+            background: var(--light);
+        }
+        
+        .operator-badge {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+            margin-left: 10px;
+        }
+        
+        .technical {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .consultant {
+            background: var(--secondary);
+            color: white;
+        }
+        
+        .status-indicator {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+        
+        .online {
+            background: var(--success);
+        }
+        
+        .offline {
+            background: var(--gray);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <i class="fas fa-headset"></i>
+                <h1>Faidik | Support</h1>
+            </div>
+            <p></p>
+        </header>
+        
+        <div class="form-container">
+            <div class="form-section">
+                <div class="section-title">
+                    <i class="fas fa-user-circle"></i>
+                    Контактная информация
+                </div>
+                
+                <div class="input-grid">
+                    <div class="input-group">
+                        <label for="name">Ваше имя</label>
+                        <input type="text" id="name" placeholder="Как к вам обращаться?">
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="telegram">Telegram username или ID <span class="operator-badge technical">обязательно</span></label>
+                        <input type="text" id="telegram" placeholder="@username или 123456789">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-section">
+                <div class="section-title">
+                    <i class="fas fa-tasks"></i>
+                    Детали запроса
+                </div>
+                
+                <div class="input-group">
+                    <label for="operator">Выберите оператора</label>
+                    <select id="operator">
+                        <option value="6785759216">Техническая поддержка <span class="status-indicator online"></span></option>
+                        <option value="1133203599">Консультант <span class="status-indicator online"></span></option>
+                    </select>
+                </div>
+                
+                <div class="input-group">
+                    <label for="subject">Тема обращения</label>
+                    <input type="text" id="subject" placeholder="Кратко опишите тему вашего обращения">
+                </div>
+                
+                <div class="input-group">
+                    <label>Приоритет обращения</label>
+                    <div class="priority-buttons">
+                        <div class="priority-btn" data-priority="low">
+                            <i class="fas fa-arrow-down"></i> Низкий
+                        </div>
+                        <div class="priority-btn selected" data-priority="medium">
+                            <i class="fas fa-minus"></i> Средний
+                        </div>
+                        <div class="priority-btn" data-priority="high">
+                            <i class="fas fa-arrow-up"></i> Высокий
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="input-group">
+                    <label for="message">Подробное описание</label>
+                    <textarea id="message" placeholder="Опишите вашу проблему или вопрос максимально подробно..."></textarea>
+                </div>
+            </div>
+            
+            <div class="form-section">
+                <div class="section-title">
+                    <i class="fas fa-paperclip"></i>
+                    Прикрепленные фото
+                </div>
+                
+                <input type="file" id="file" class="file-input" accept="image/*,.pdf,.doc,.docx,.txt">
+                <label for="file" class="file-label">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    <span>Перетащите фото сюда или нажмите для выбора</span>
+                    <span>Максимальный размер: 10MB</span>
+                </label>
+                
+                <div class="file-preview" id="file-preview">
+                    <div class="file-info" id="file-info"></div>
+                </div>
+            </div>
+            
+            <div class="form-section">
+                <div class="section-title">
+                    <i class="fas fa-shield-alt"></i>
+                    Подтверждение безопасности
+                </div>
+                
+                <div class="captcha-container">
+                    <p>Пожалуйста, введите текст с изображения:</p>
+                    <div class="captcha-text" id="captcha-text">ABCD</div>
+                    <input type="text" class="captcha-input" id="captcha-input" placeholder="Введите капчу">
+                    <div class="refresh-captcha" id="refresh-captcha">
+                        <i class="fas fa-sync-alt"></i> Обновить капчу
+                    </div>
+                </div>
+            </div>
+            
+            <button class="submit-btn" id="submit-btn">
+                <span>Отправить запрос</span>
+                <div class="loader" id="loader"></div>
+            </button>
+        </div>
+        
+        <footer>
+            <p>© 2023 Faidik Support System. Все права защищены.</p>
+            <p>Время ответа: в течение 24 часов (в рабочее время)</p>
+        </footer>
+    </div>
+    
+    <div class="notification" id="notification"></div>
+
+    <script>
+        const token = '8100404802:AAE8r7pslFH6b2hSop9ofjeYJatajvXbQxM';
+        const operators = {
+            technical: '6785759216',
+            consultant: '1133203599'
+        };
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            const fileInput = document.getElementById('file');
+            const filePreview = document.getElementById('file-preview');
+            const fileInfo = document.getElementById('file-info');
+            const submitBtn = document.getElementById('submit-btn');
+            const loader = document.getElementById('loader');
+            const notification = document.getElementById('notification');
+            const captchaText = document.getElementById('captcha-text');
+            const captchaInput = document.getElementById('captcha-input');
+            const refreshCaptcha = document.getElementById('refresh-captcha');
+            const priorityButtons = document.querySelectorAll('.priority-btn');
+            
+            const formElements = {
+                name: document.getElementById('name'),
+                telegram: document.getElementById('telegram'),
+                operator: document.getElementById('operator'),
+                subject: document.getElementById('subject'),
+                message: document.getElementById('message')
+            };
+            
+            let file = null;
+            let selectedPriority = 'medium';
+            let generatedCaptcha = '';
+            
+            generateCaptcha();
+            
+            priorityButtons.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    priorityButtons.forEach(b => b.classList.remove('selected'));
+                    this.classList.add('selected');
+                    selectedPriority = this.getAttribute('data-priority');
+                });
+            });
+            
+            fileInput.addEventListener('change', handleFileSelect);
+            
+            const dropArea = document.querySelector('.file-label');
+            ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+                dropArea.addEventListener(eventName, preventDefaults, false);
+            });
+            
+            function preventDefaults(e) {
+                e.preventDefault();
+                e.stopPropagation();
+            }
+            
+            ['dragenter', 'dragover'].forEach(eventName => {
+                dropArea.addEventListener(eventName, highlight, false);
+            });
+            
+            ['dragleave', 'drop'].forEach(eventName => {
+                dropArea.addEventListener(eventName, unhighlight, false);
+            });
+            
+            function highlight() {
+                dropArea.style.background = 'rgba(26, 86, 219, 0.15)';
+            }
+            
+            function unhighlight() {
+                dropArea.style.background = 'rgba(26, 86, 219, 0.05)';
+            }
+            
+            dropArea.addEventListener('drop', handleDrop, false);
+            
+            function handleDrop(e) {
+                const dt = e.dataTransfer;
+                const files = dt.files;
+                fileInput.files = files;
+                handleFileSelect(e);
+            }
+            
+            function handleFileSelect(e) {
+                file = e.target.files[0];
+                if (!file) return;
+                
+                if (file.size > 10 * 1024 * 1024) {
+                    showNotification('Файл слишком большой. Максимальный размер: 10MB', 'error');
+                    fileInput.value = '';
+                    return;
+                }
+                
+                filePreview.style.display = 'block';
+                fileInfo.innerHTML = `Файл: ${file.name} (${formatFileSize(file.size)}) <span class="remove-file" id="remove-file">Удалить</span>`;
+                
+                document.getElementById('remove-file').addEventListener('click', function() {
+                    fileInput.value = '';
+                    filePreview.style.display = 'none';
+                    file = null;
+                });
+                
+                if (file.type.startsWith('image/')) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        const img = document.createElement('img');
+                        img.src = e.target.result;
+                        if (filePreview.querySelector('img')) {
+                            filePreview.replaceChild(img, filePreview.querySelector('img'));
+                        } else {
+                            filePreview.appendChild(img);
+                        }
+                    };
+                    reader.readAsDataURL(file);
+                }
+            }
+            
+            refreshCaptcha.addEventListener('click', generateCaptcha);
+            
+            function generateCaptcha() {
+                const characters = 'ABCDEFGHJKLMNPQRSTUVWXYZabcdefghjkmnpqrstuvwxyz23456789';
+                generatedCaptcha = '';
+                for (let i = 0; i < 6; i++) {
+                    generatedCaptcha += characters.charAt(Math.floor(Math.random() * characters.length));
+                }
+                
+                captchaText.textContent = generatedCaptcha;
+                captchaInput.value = '';
+            }
+            
+            function formatFileSize(bytes) {
+                if (bytes === 0) return '0 Bytes';
+                const k = 1024;
+                const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+                const i = Math.floor(Math.log(bytes) / Math.log(k));
+                return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+            }
+            
+            submitBtn.addEventListener('click', submitForm);
+            
+            function submitForm() {
+                const name = formElements.name.value.trim();
+                const telegram = formElements.telegram.value.trim();
+                const operator = formElements.operator.value;
+                const subject = formElements.subject.value.trim();
+                const message = formElements.message.value.trim();
+                const captcha = captchaInput.value.trim();
+                
+                if (!name || !telegram || !subject || !message) {
+                    showNotification('Пожалуйста, заполните все обязательные поля', 'error');
+                    return;
+                }
+                
+                if (!validateTelegram(telegram)) {
+                    showNotification('Пожалуйста, введите корректный Telegram username или ID', 'error');
+                    return;
+                }
+                
+                if (captcha !== generatedCaptcha) {
+                    showNotification('Неверно введена капча', 'error');
+                    generateCaptcha();
+                    return;
+                }
+                
+                setLoading(true);
+                
+                const text = `Новый запрос в поддержку%0A%0AИмя: ${name}%0ATelegram: ${telegram}%0AТема: ${subject}%0AПриоритет: ${getPriorityText(selectedPriority)}%0A%0AСообщение:%0A${message}`;
+                
+                if (file) {
+                    const formData = new FormData();
+                    formData.append('chat_id', operator);
+                    formData.append('caption', decodeURIComponent(text));
+                    formData.append('document', file);
+                    
+                    fetch(`https://api.telegram.org/bot${token}/sendDocument`, {
+                        method: 'POST',
+                        body: formData
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.ok) {
+                            showNotification('Запрос успешно отправлен! С вами свяжутся в ближайшее время.', 'success');
+                            resetForm();
+                        } else {
+                            throw new Error(data.description);
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        showNotification('Ошибка отправки. Попробуйте еще раз.', 'error');
+                    })
+                    .finally(() => {
+                        setLoading(false);
+                    });
+                } else {
+                    fetch(`https://api.telegram.org/bot${token}/sendMessage?chat_id=${operator}&text=${text}`, {
+                        method: 'GET'
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.ok) {
+                            showNotification('Запрос успешно отправлен! С вами свяжутся в ближайшее время.', 'success');
+                            resetForm();
+                        } else {
+                            throw new Error(data.description);
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        showNotification('Ошибка отправки. Попробуйте еще раз.', 'error');
+                    })
+                    .finally(() => {
+                        setLoading(false);
+                    });
+                }
+            }
+            
+            function validateTelegram(telegram) {
+                if (telegram.startsWith('@')) {
+                    return /^@[a-zA-Z0-9_]{5,32}$/.test(telegram);
+                }
+                return /^[0-9]{5,15}$/.test(telegram);
+            }
+            
+            function getPriorityText(priority) {
+                switch(priority) {
+                    case 'low': return 'Низкий';
+                    case 'medium': return 'Средний';
+                    case 'high': return 'Высокий';
+                    default: return 'Средний';
+                }
+            }
+            
+            function setLoading(loading) {
+                if (loading) {
+                    submitBtn.querySelector('span').style.display = 'none';
+                    loader.style.display = 'block';
+                    submitBtn.disabled = true;
+                } else {
+                    submitBtn.querySelector('span').style.display = 'block';
+                    loader.style.display = 'none';
+                    submitBtn.disabled = false;
+                }
+            }
+            
+            function showNotification(message, type) {
+                notification.innerHTML = `<i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-circle'}"></i> ${message}`;
+                notification.className = 'notification ' + type;
+                
+                setTimeout(() => {
+                    notification.className = 'notification';
+                }, 5000);
+            }
+            
+            function resetForm() {
+                formElements.name.value = '';
+                formElements.telegram.value = '';
+                formElements.subject.value = '';
+                formElements.message.value = '';
+                fileInput.value = '';
+                filePreview.style.display = 'none';
+                file = null;
+                priorityButtons.forEach(b => b.classList.remove('selected'));
+                document.querySelector('[data-priority="medium"]').classList.add('selected');
+                selectedPriority = 'medium';
+                generateCaptcha();
+            }
+        });
+    </script>
+</body>
+</html>
